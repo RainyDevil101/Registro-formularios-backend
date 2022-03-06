@@ -6,9 +6,9 @@ const adminRole = ( req, res = response, next  ) => {
         })
     }
     const { role, name } = req.user;
-    if ( role !== 'ADMIN_ROLE' ) {
+    if ( role !== 'ADMIN_SUPERVISOR' ) {
         return res.status(401).json({
-            msg: '${name} no es administrador'
+            msg: '${name} no es supervisor'
         });
     }
     next();

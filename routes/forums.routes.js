@@ -5,20 +5,20 @@ const { createForum,
     getForums,
     updateForum,
     deleteForum } = require('../controllers/forum.controllers')
-const { validateJWT, validateFields, adminRole } = require('../middlewares');
+const { validateJWT, validateFields, adminRole, hasRole } = require('../middlewares');
 const { forumByIdExists, forumNameExists } = require('../helpers')
 const router = Router();
 
 // Get all forums - ADMIN
 router.get('/', [
     validateJWT,
-    adminRole
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
 ], getForums);
 
 // Get forum by id - ADMIN
 router.get('/:id', [
     validateJWT,
-    adminRole,
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
     check('id', 'No es un id válido.').isMongoId(),
     check('id').custom(forumByIdExists),
     validateFields,
@@ -27,14 +27,14 @@ router.get('/:id', [
 // Create a new forum - ADMIN
 router.post('/', [
     validateJWT,
-    adminRole,
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
     validateFields,
 ], createForum)
 
 //Update forum - ADMIN
 router.put('/:id', [
     validateJWT,
-    adminRole,
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
     check('id', 'No es un id válido').isMongoId(),
     check('id').custom(forumByIdExists),
     validateFields,

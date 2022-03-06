@@ -1,52 +1,52 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { createQuestion,
-    getQuestion,
-    getQuestions,
-    updateQuestion,
-    deleteQuestion } = require('../controllers/question.controllers')
+const { createRevForum,
+    getRevForum,
+    getRevForums,
+    updateRevForum,
+    deleteRevForum } = require('../controllers/revForum.controllers')
 const { validateJWT, validateFields, adminRole, hasRole } = require('../middlewares');
-const { questionByIdExists, questionNameExists } = require('../helpers')
+const { revForumByIdExists, revForumNameExists } = require('../helpers')
 const router = Router();
 
-// Get all questions - ADMIN
+// Get all revforums - ADMIN
 router.get('/', [
     validateJWT,
     hasRole('SUPERVISOR_ROLE', 'CONSULTOR_ROLE'),
-], getQuestions);
+], getRevForums);
 
-// Get question by id - ADMIN
+// Get revforum by id - ADMIN
 router.get('/:id', [
     validateJWT,
     hasRole('SUPERVISOR_ROLE', 'CONSULTOR_ROLE'),
     check('id', 'No es un id válido.').isMongoId(),
-    check('id').custom(questionByIdExists),
+    check('id').custom(revForumByIdExists),
     validateFields,
-], getQuestion);
+], getRevForum);
 
-// Create a new question - ADMIN
+// Create a new revforum - ADMIN
 router.post('/', [
     validateJWT,
     hasRole('SUPERVISOR_ROLE', 'CONSULTOR_ROLE'),
     validateFields,
-], createQuestion)
+], createRevForum)
 
-//Update forum - ADMIN
+//Update revforum - ADMIN
 router.put('/:id', [
     validateJWT,
     hasRole('SUPERVISOR_ROLE', 'CONSULTOR_ROLE'),
     check('id', 'No es un id válido').isMongoId(),
-    check('id').custom(questionByIdExists),
+    check('id').custom(revForumByIdExists),
     validateFields,
-], updateQuestion)
+], updateRevForum)
 
-//Delete forum - ADMIN
+//Delete revforum - ADMIN
 router.delete('/:id', [
     validateJWT,
     adminRole,
     check('id', 'No es un id válido').isMongoId(),
     validateFields,
-    check('id').custom(questionByIdExists),
+    check('id').custom(revForumByIdExists),
     validateFields
-], deleteQuestion);
+], deleteRevForum);
 module.exports = router;

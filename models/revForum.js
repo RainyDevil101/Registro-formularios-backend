@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose')
-const ForumSchema = Schema({
+const revForumSchema = Schema({
     name: {
         type: String,
         required: true,
@@ -8,90 +8,84 @@ const ForumSchema = Schema({
         type: Number,
         required: true,
     },
-    user: {
+    revUser: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true,
     },
     dateAc: {
         type: Date,
-        required: true
-    },
-    date: {
-        type: Date,
         default: Date.now,
-    },
-    run: {
-        type: String,
         required: true,
     },
-    position: {
-        type: Schema.Types.ObjectId,
-        ref: 'Position',
+    revDate: {
+        type: Boolean,
         required: true,
     },
-    task: {
-        type: Schema.Types.ObjectId,
-        ref: 'Task',
+    revRun: {
+        type: Boolean,
         required: true,
     },
-    storage: {
-        type: Schema.Types.ObjectId,
-        ref: 'Storage',
+    revPosition: {
+        type: Boolean,
         required: true,
     },
-    question1: {
-        type: String,
+    revTask: {
+        type: Boolean,
         required: true,
     },
-    question2: {
-        type: String,
+    revQuestion1: {
+        type: Boolean,
         required: true,
     },
-    question3: {
-        type: String,
+    revQuestion2: {
+        type: Boolean,
         required: true,
     },
-    question4: {
-        type: String,
+    revQuestion3: {
+        type: Boolean,
         required: true,
     },
-    question5: {
-        type: String,
+    revQuestion4: {
+        type: Boolean,
         required: true,
     },
-    obligation: {
-        type: String,
+    revQuestion5: {
+        type: Boolean,
         required: true,
     },
-    status: {
+    revObligation: {
+        type: Boolean,
+        required: true,
+    },
+    revStatus: {
         type: Boolean,
         default: true,
         required: true,
     },
-    statusForum: {
+    revStatusForum: {
         type: String,
         required: true,
-        default: "PENDIENTE",
+        default: "REVISADO",
     },
-    controls: {
+    revControls: {
         type: Boolean,
         required: true,
     },
-    postControl: {
-        type: String,
+    revPostControl: {
+        type: Boolean
     },
-    imgAn: {
-        type: String,
+    revImgAn: {
+        type: Boolean,
         required: true,
     },
-    imgRe: {
-        type: String,
+    revImgRe: {
+        type: Boolean,
         required: true,
     },
 });
-ForumSchema.methods.toJSON = function () {
+revForumSchema.methods.toJSON = function () {
     const { __v, status, ...data } = this.toObject();
     return data;
 }
-module.exports = model('Forum', ForumSchema);
+module.exports = model('revForum', revForumSchema);

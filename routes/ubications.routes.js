@@ -12,13 +12,13 @@ const router = Router();
 // Get all ubications - public
 router.get('/', [
     validateJWT,
-    hasRole('ADMIN_ROLE', 'CONSULTOR_ROLE', 'VIEWER_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'CONSULTOR_ROLE'),
 ] , getUbications);
 
 // Get category by id
 router.get('/:id', [
     validateJWT,
-    hasRole('ADMIN_ROLE', 'CONSULTOR_ROLE', 'VIEWER_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'CONSULTOR_ROLE'),
     check('id', 'No es un id válido').isMongoId(),
     check('id').custom(ubicationByIdExists),
     validateFields,
@@ -27,7 +27,7 @@ router.get('/:id', [
 // Create a new ubication - ADMIN
 router.post('/', [
     validateJWT,
-    adminRole,
+    hasRole('SUPERVISOR_ROLE', 'CONSULTOR_ROLE'),
     check('name', 'El nombre es obligatorio').not().isEmpty(),
     check('name', 'El nombre no es válido').isLength({ min: 1 }).matches(/^[a-zA-Z0-9_.-]*$/).withMessage('Solo puede contener letras y números'),
     validateFields,

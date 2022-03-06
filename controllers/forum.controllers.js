@@ -4,8 +4,9 @@ const getForums = async (req, res = response) => {
     const { limit = 100000, from = 0 } = req.query;
     const query = { status: true };
     const [total, forums] = await Promise.all([
-        Forum.countDocuments(query).where('forum').equals(req.user.storage),
-        Forum.find(query).where('forum').equals(req.user.storage)
+        Forum.countDocuments(query).where('statusForum').equals("PENDIENTE"),
+        Forum.find(query).where('statusForum').equals("PENDIENTE")
+            .where('storage').equals(req.user.storage)
             .populate('user', 'name')
             .skip(Number(from))
             .limit(Number(limit))
@@ -21,6 +22,8 @@ const getForum = async (req, res = response) => {
     const forum = await Forum.findById(id).where('status').equals(true)
                                                 .where('storage').equals(req.user.storage)
         .populate('user', 'name')
+        .populate('position', 'name')
+        .populate('task', 'name')
     res.json(forum);
 };
 const createForum = async (req, res = response) => {

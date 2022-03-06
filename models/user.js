@@ -9,23 +9,32 @@ const UserSchema = Schema({
         type: String,
         required: [true]
     },
+    rut: {
+        type: String,
+        required: [true]
+    },
     password: {
         type: String,
         required: [true]
     },
     role: {
         type: String,
-        required: true,
-        emun: ['ADMIN_ROLE', 'CONSULTOR_ROLE', 'VIEWER_ROLE']
+        required: [true],
+        emun: ['SUPERVISOR_ROLE', 'REVISOR_ROLE']
+    },
+    position: {
+        type: Schema.Types.ObjectId,
+        ref: 'Position',
+        required: [true]
     },
     storage: {
         type: Schema.Types.ObjectId,
         ref: 'Storage',
-        required: true,
+        required: [true],
     },
     status: {
         type: Boolean,
-        default: true,
+        default: [true],
     },
     createdAt: {
         type: Date,

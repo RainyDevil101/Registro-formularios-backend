@@ -1,7 +1,6 @@
 const Forum     = require('./forum');
-const Selection = require('./selection');
+const revForum     = require('./revForum');
 const Position  = require('./position');
-const Question  = require('./question');
 const Role      = require('./role');
 const Server    = require('./server');
 const Storage   = require('./storage');
@@ -11,9 +10,8 @@ const User      = require('./user');
 
 module.exports = {
     Forum,
-    Selection,
+    revForum,
     Position,
-    Question,
     Role,
     Server,
     Storage,

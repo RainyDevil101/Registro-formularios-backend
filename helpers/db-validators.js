@@ -1,4 +1,4 @@
-const { User, Material, Applicant, Entry, Ubication, Dispatcher, Role, Category, Out, Position, Supplier, Storage } = require('../models');
+const { User, Material, Applicant, Entry, Ubication, Dispatcher, Role, Category, Out, Position, Supplier, Storage, Forum } = require('../models');
 
 const validRole = async (role = '') => {
    
@@ -35,6 +35,13 @@ const storageByIdExists = async ( id ) => {
     }
 }
 
+const forumByIdExists = async ( id ) => {
+    const forumExists = await Forum.findById( id );
+    if ( !forumExists ) {
+        throw new Error (`El id: ${id} no existe`);
+    }
+}
+
 const allowedCollections = ( collection = '', collections = []) => {
 
     console.log(collection, collections);
@@ -54,4 +61,5 @@ module.exports = {
     userByIdExists,
     validRole,
     allowedCollections,
+    forumByIdExists,
 }
