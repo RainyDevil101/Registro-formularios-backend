@@ -1,5 +1,7 @@
 const { response } = require('express');
 const { Forum } = require('../models');
+const { getDayMonthYear } = require('../helpers/DateFormat')
+
 const getForums = async (req, res = response) => {
     const { limit = 100000, from = 0 } = req.query;
     const query = { status: true };
@@ -23,18 +25,32 @@ const getForum = async (req, res = response) => {
         .populate('user', 'name')
         .populate('position', 'name')
         .populate('task', 'name')
+        
     res.json(forum);
 };
 const createForum = async (req, res = response) => {
 
     const { user, storage, ...body } = req.body;
-    const name = req.body.name.toUpperCase();
+
+    const newDate = new Date()
+
+
+    const result = getDayMonthYear(newDate)
+
+    const dayList = result.day
+    const monthList = result.month
+    const yearList = result.yearDay
+
     const forumDB = await Forum.findOne().sort({ '_id': -1 }).limit(1);
     const code = forumDB.code + 1;
     // Generate DATA
     const data = {
         ...body,
         code,
+        newDate,
+        dayList,
+        monthList,
+        yearList,
         storage: req.user.storage,
         name: req.body.name.toUpperCase(),
         user: req.user._id

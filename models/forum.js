@@ -17,9 +17,9 @@ const ForumSchema = Schema({
         type: Date,
         required: true
     },
-    date: {
+    newDate: {
         type: Date,
-        default: Date.now,
+        required: true
     },
     run: {
         type: String,
@@ -88,6 +88,18 @@ const ForumSchema = Schema({
     imgRe: {
         type: String,
         required: true,
+    },
+    dayList : {
+        type: String,
+        required: true
+    },
+    monthList : {
+        type: String,
+        required: true
+    },
+    yearList : {
+        type: String,
+        required: true
     },
 });
 ForumSchema.methods.toJSON = function () {
