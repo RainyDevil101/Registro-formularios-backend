@@ -14,7 +14,7 @@ router.get('/', [
 // Get storage by id - ADMIN
 router.get('/:id', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'CONSULTOR_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
     check('id', 'No es un id válido.').isMongoId(),
     check('id').custom(storageByIdExists),
     validateFields,
@@ -22,7 +22,7 @@ router.get('/:id', [
 // Create a new storage - ADMIN
 router.post('/', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'CONSULTOR_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
     check('name', 'El nombre es obligatorio').not().isEmpty(),
     check('name', 'El nombre no es válido').isLength({ min: 1 }).matches(/^[a-zA-Z0-9_.-]*$/).withMessage('Solo puede contener letras y números'),
     validateFields,

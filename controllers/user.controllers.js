@@ -25,10 +25,11 @@ const getUser = async (req = request, res = response) => {
 }
 
 const usersPost = async (req, res = response) => {
-    const { name, mail, password, role, storage } = req.body;
-    const user = new User({ name, mail, password, role, storage });
+    const { name, mail, password, role, ...data } = req.body;
+    const user = new User({ name, mail, password, role, ...data });
     const salt = bcryptjs.genSaltSync();
     user.password = bcryptjs.hashSync(password, salt);
+
     await user.save();
     res.json({
         user

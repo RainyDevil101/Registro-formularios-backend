@@ -21,7 +21,7 @@ router.get('/:id', [
 
 // Create user ADMIN
 router.post('/', [
-    // validateJWT,
+    validateJWT,
     // adminRole,
     check('name', 'El nombre es obligatorio.').not().isEmpty(),
     check('password', 'La contraseña debe tener más de 6 letras.').isLength({ min: 6 }),

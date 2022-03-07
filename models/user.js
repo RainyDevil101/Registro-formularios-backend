@@ -3,15 +3,15 @@ const { Schema, model } = require( 'mongoose' );
 const UserSchema = Schema({
     name: {
         type: String,
-        required: [true]
+        required: true
     },
     mail: {
         type: String,
-        required: [true]
+        required: true
     },
     rut: {
         type: String,
-        required: [true]
+        required: true
     },
     password: {
         type: String,
@@ -25,16 +25,16 @@ const UserSchema = Schema({
     position: {
         type: Schema.Types.ObjectId,
         ref: 'Position',
-        required: [true]
+        required: true
     },
     storage: {
         type: Schema.Types.ObjectId,
         ref: 'Storage',
-        required: [true],
+        required: true,
     },
     status: {
         type: Boolean,
-        default: [true],
+        default: true,
     },
     createdAt: {
         type: Date,
