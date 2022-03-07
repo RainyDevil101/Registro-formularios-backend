@@ -19,7 +19,7 @@ const getForums = async (req, res = response) => {
 const getForum = async (req, res = response) => {
     const { id } = req.params;
     const forum = await Forum.findById(id).where('status').equals(true)
-                                                .where('storage').equals(req.user.storage)
+                                                
         .populate('user', 'name')
         .populate('position', 'name')
         .populate('task', 'name')
