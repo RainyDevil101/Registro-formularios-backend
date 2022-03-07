@@ -12,13 +12,13 @@ const router = Router();
 // Get all options - ADMIN
 router.get('/', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'CONSULTOR_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
 ], getSelections);
 
 // Get option by id - ADMIN
 router.get('/:id', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'CONSULTOR_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
     check('id', 'No es un id válido.').isMongoId(),
     check('id').custom(optionByIdExists),
     validateFields,
@@ -27,7 +27,7 @@ router.get('/:id', [
 // Create a new option - ADMIN
 router.post('/', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'CONSULTOR_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
     check('name', 'El nombre es obligatorio.').not().isEmpty(),
     check('name', 'El nombre no es válido.').isLength({ min: 1 }).matches(/^[a-zA-Z0-9 ]*$/).withMessage('Solo puede contener letras y números'),
     validateFields,

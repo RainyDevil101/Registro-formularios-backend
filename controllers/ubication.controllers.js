@@ -4,8 +4,8 @@ const getUbications = async ( req, res = response ) => {
     const { limit = 1000000000000000000, from = 0 } = req.query;
     const query = { status: true };
     const [ total, ubications ] = await Promise.all([
-        Ubication.countDocuments(query).where('storage').equals(req.user.storage),
-        Ubication.find(query).where('storage').equals(req.user.storage)
+        Ubication.countDocuments(query),
+        Ubication.find(query)
                 .populate( 'user', 'name' )
                 .skip(Number( from ))
                 .limit(Number( limit ))

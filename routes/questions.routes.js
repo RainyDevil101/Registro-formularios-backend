@@ -12,13 +12,13 @@ const router = Router();
 // Get all questions - ADMIN
 router.get('/', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'CONSULTOR_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
 ], getQuestions);
 
 // Get question by id - ADMIN
 router.get('/:id', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'CONSULTOR_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
     check('id', 'No es un id válido.').isMongoId(),
     check('id').custom(questionByIdExists),
     validateFields,
@@ -27,14 +27,14 @@ router.get('/:id', [
 // Create a new question - ADMIN
 router.post('/', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'CONSULTOR_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
     validateFields,
 ], createQuestion)
 
 //Update forum - ADMIN
 router.put('/:id', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'CONSULTOR_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
     check('id', 'No es un id válido').isMongoId(),
     check('id').custom(questionByIdExists),
     validateFields,

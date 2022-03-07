@@ -6,7 +6,6 @@ const getForums = async (req, res = response) => {
     const [total, forums] = await Promise.all([
         Forum.countDocuments(query).where('statusForum').equals("PENDIENTE"),
         Forum.find(query).where('statusForum').equals("PENDIENTE")
-            .where('storage').equals(req.user.storage)
             .populate('user', 'name')
             .skip(Number(from))
             .limit(Number(limit))

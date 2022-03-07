@@ -6,8 +6,8 @@ const getSelections = async (req, res = response) => {
     const { limit = 100000, from = 0 } = req.query;
     const query = { status: true };
     const [total, selections] = await Promise.all([
-        Selection.countDocuments(query).where('storage').equals(req.user.storage),
-        Selection.find(query).where('storage').equals(req.user.storage)
+        Selection.countDocuments(query),
+        Selection.find(query)
             .populate('user', 'name')
             .skip(Number(from))
             .limit(Number(limit))

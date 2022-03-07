@@ -6,8 +6,8 @@ const getPositions = async (req, res = response) => {
     const { limit = 100000, from = 0 } = req.query;
     const query = { status: true };
     const [total, positions] = await Promise.all([
-        Position.countDocuments(query).where('storage').equals(req.user.storage),
-        Position.find(query).where('storage').equals(req.user.storage)
+        Position.countDocuments(query),
+        Position.find(query)
             .populate('user', 'name')
             .skip(Number(from))
             .limit(Number(limit))

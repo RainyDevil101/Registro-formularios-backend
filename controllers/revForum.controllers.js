@@ -5,8 +5,8 @@ const getRevForums = async (req, res = response) => {
     const { limit = 100000, from = 0 } = req.query;
     const query = { status: true };
     const [total, revForums] = await Promise.all([
-        Forum.countDocuments(query).where('revForum').equals(req.user.storage),
-        Forum.find(query).where('revForum').equals(req.user.storage)
+        Forum.countDocuments(query),
+        Forum.find(query)
             .populate('user', 'name')
             .skip(Number(from))
             .limit(Number(limit))

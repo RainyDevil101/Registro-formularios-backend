@@ -12,13 +12,13 @@ const router = Router();
 // Get all revforums - ADMIN
 router.get('/', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'CONSULTOR_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
 ], getRevForums);
 
 // Get revforum by id - ADMIN
 router.get('/:id', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'CONSULTOR_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
     check('id', 'No es un id válido.').isMongoId(),
     check('id').custom(revForumByIdExists),
     validateFields,
@@ -27,14 +27,14 @@ router.get('/:id', [
 // Create a new revforum - ADMIN
 router.post('/', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'CONSULTOR_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
     validateFields,
 ], createRevForum)
 
 //Update revforum - ADMIN
 router.put('/:id', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'CONSULTOR_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
     check('id', 'No es un id válido').isMongoId(),
     check('id').custom(revForumByIdExists),
     validateFields,
