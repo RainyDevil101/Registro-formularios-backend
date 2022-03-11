@@ -3,6 +3,7 @@ const { check } = require('express-validator');
 const { validateFields, validateJWT, hasRole } = require('../middlewares');
 const {  mExists, userByIdExists, validRole, storageByIdExists } = require('../helpers/db-validators');
 const { usersGet, usersDelete, usersPost, getUser, usersPut } = require('../controllers/user.controllers');
+const { rutValidated } = require('../helpers/run-validator')
 const router = Router();
 //Get users ADMIN
 router.get('/', [
@@ -25,6 +26,8 @@ router.post('/', [
     hasRole('REVISOR_ROLE'),
     check('name', 'El nombre es obligatorio.').not().isEmpty(),
     check('password', 'La contraseña debe tener más de 6 letras.').isLength({ min: 6 }),
+    check('rut', 'El rut es obligatorio.').not().isEmpty(),
+    check('rut').custom( rutValidated ),
     check('mail').custom( mExists ).isEmail(),
     check('role').custom( validRole ),
     validateFields
@@ -36,6 +39,8 @@ router.put('/:id', [
     hasRole('REVISOR_ROLE'),
     check('id', 'No es un ID válido.').isMongoId(),
     check('id').custom( userByIdExists ),
+    check('rut', 'El rut es obligatorio.').not().isEmpty(),
+    check('rut').custom( rutValidated ),
     check('storage').custom( storageByIdExists ),
     validateFields
 ] , usersPut);
