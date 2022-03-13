@@ -1,6 +1,6 @@
 const { response } = require('express');
 const bcryptjs = require('bcryptjs');
-const { User } = require('../models');
+const { User, Position } = require('../models');
 const { generateJWT } = require('../helpers/generate-jwt');
 
 const login = async (req, res = response) => {
@@ -10,7 +10,8 @@ const login = async (req, res = response) => {
     try {
 
         //Verify if mail exists
-        const user = await User.findOne({ mail });
+        const user = await User.findOne({ mail })
+
         if ( !user ) {
             return res.status(400).json({
                 msg: 'Usuario / Password no son correctos'
@@ -32,11 +33,17 @@ const login = async (req, res = response) => {
             })
         }
 
+        const userPosition = await Position.findById(user.position)
+        
+        
+
         //Generate JWT
         const token = await generateJWT( user.id );
+
         res.json({
             user,
-            token
+            token,
+            userPosition,
         })
 
     } catch (error) {
@@ -53,9 +60,11 @@ const renovateToken = async ( req, res = response ) => {
 
     const { user } = req;
     const token = await generateJWT( user.id )
+    const userPosition = await Position.findById(user.position)
     res.json({
         user,
-        token
+        token,
+        userPosition,
     })
 
 }
