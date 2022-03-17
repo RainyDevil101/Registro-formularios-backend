@@ -1,6 +1,6 @@
 const { response } = require('express');
 const bcryptjs = require('bcryptjs');
-const { User, Position } = require('../models');
+const { User, Position, Task } = require('../models');
 const { generateJWT } = require('../helpers/generate-jwt');
 
 const login = async (req, res = response) => {
@@ -33,7 +33,8 @@ const login = async (req, res = response) => {
             })
         }
 
-        const userPosition = await Position.findById(user.position)
+        const userPosition = await Position.findById(user.position);
+        const userTask = await Task.findById(user.task);
         
         
 
@@ -44,6 +45,7 @@ const login = async (req, res = response) => {
             user,
             token,
             userPosition,
+            userTask,
         })
 
     } catch (error) {
@@ -51,7 +53,7 @@ const login = async (req, res = response) => {
         console.log(error)
         res.status(500).json({
             msg: 'Hable con el administrador.'
-        })
+        });
 
     }
 }
@@ -59,12 +61,14 @@ const login = async (req, res = response) => {
 const renovateToken = async ( req, res = response ) => {
 
     const { user } = req;
-    const token = await generateJWT( user.id )
-    const userPosition = await Position.findById(user.position)
+    const token = await generateJWT( user.id );
+    const userPosition = await Position.findById(user.position);
+    const userTask = await Task.findById(user.task);
     res.json({
         user,
         token,
         userPosition,
+        userTask
     })
 
 }

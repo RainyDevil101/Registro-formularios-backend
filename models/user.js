@@ -25,7 +25,12 @@ const UserSchema = Schema({
     position: {
         type: Schema.Types.ObjectId,
         ref: 'Position',
-        required: true
+        required: true,
+    },
+    task: {
+        type: Schema.Types.ObjectId,
+        ref: 'Task',
+        required: true,
     },
     storage: {
         type: Schema.Types.ObjectId,
