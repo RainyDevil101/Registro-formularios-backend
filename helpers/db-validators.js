@@ -36,8 +36,11 @@ const storageByIdExists = async ( id ) => {
 }
 
 const forumByIdExists = async ( id ) => {
+    console.log(id);
     const forumExists = await Forum.findById( id );
+    
     if ( !forumExists ) {
+        console.log('pepe');
         throw new Error (`El id: ${id} no existe`);
     }
 }
