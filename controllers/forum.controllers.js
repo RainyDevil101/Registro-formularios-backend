@@ -9,6 +9,8 @@ const getForums = async (req, res = response) => {
         Forum.countDocuments(query),
         Forum.find(query)
             .populate('user', 'name')
+            .populate('position', 'name')
+            .populate('task', 'name')
             .skip(Number(from))
             .limit(Number(limit))
             .sort({ 'newDate': 1 })
