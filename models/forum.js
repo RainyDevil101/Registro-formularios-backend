@@ -13,6 +13,10 @@ const ForumSchema = Schema({
         ref: 'User',
         required: true,
     },
+    userRevisor: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+    },
     dateAc: {
         type: Date,
         required: true
@@ -39,6 +43,10 @@ const ForumSchema = Schema({
         type: Schema.Types.ObjectId,
         ref: 'Storage',
         required: true,
+    },
+    revisorStorage: {
+        type: Schema.Types.ObjectId,
+        ref: 'Storage',
     },
     question1: {
         type: String,
@@ -100,6 +108,71 @@ const ForumSchema = Schema({
     yearList : {
         type: String,
         required: true
+    },
+    riesgosCriticos: {
+        type: String,
+        default: 'pendiente',
+        required: true,
+    },
+    controlesCriticos: {
+        type: String,
+        default: 'pendiente',
+        required: true,
+    },
+    cumplenControles: {
+        type: String,
+        default: 'pendiente',
+        required: true,
+    },
+    trabControles: {
+        type: String,
+        default: 'pendiente',
+        required: true,
+    },
+    contestaronPreguntas: {
+        type: String,
+        default: 'pendiente',
+        required: true,
+    },
+    todosTrabajadores: {
+        type: String,
+        default: 'pendiente',
+        required: true,
+    },
+    todosIntegrantes: {
+        type: String,
+        default: 'pendiente',
+        required: true,
+    },
+    supervisorTitular: {
+        type: String,
+        default: 'pendiente',
+        required: true,
+    },
+    fueronCorregidas: {
+        type: String,
+        default: 'pendiente',
+        required: true,
+    },
+    oportunidadesEncontradas: {
+        type: String,
+        default: 'pendiente',
+        required: true,
+    },
+    fortalezaODP: {
+        type: String,
+        default: "pendiente",
+        required: true,
+    },
+    yesCounter: {
+        type: String,
+        default: 'pendiente',
+        required: true,
+    },
+    calidad: {
+        type: String,
+        default: 'pendiente',
+        required: true,
     },
 });
 ForumSchema.methods.toJSON = function () {

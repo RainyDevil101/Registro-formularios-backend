@@ -64,12 +64,12 @@ const createForum = async (req, res = response) => {
 }
 const updateForum = async (req, res = response) => {
     const { id } = req.params;
-    const { status, ...data } = req.body;
+    const { status, userRevisor, revisorStorage, ...data } = req.body;
     if (data.name) {
         data.name = data.name.toUpperCase();
     }
-    data.storage = req.user.storage;
-    data.user = req.user._id;
+    data.revisorStorage = req.user.storage;
+    data.userRevisor = req.user._id;
     const updatedForum = await Forum.findByIdAndUpdate(id, data, { new: true });
     res.json(updatedForum)
 }

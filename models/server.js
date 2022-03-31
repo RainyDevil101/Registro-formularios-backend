@@ -12,7 +12,6 @@ class Server {
         this.paths  = {
             auth:           '/api/auth',
             forums:         '/api/forums',
-            revForums:      '/api/revForums',
             positions:      '/api/positions',
             roles:          '/api/roles',
             storages:       '/api/storages',
@@ -64,7 +63,6 @@ class Server {
     routes() {
         this.app.use(this.paths.auth,       require('../routes/auth.routes'));
         this.app.use(this.paths.forums,     require('../routes/forums.routes'));
-        this.app.use(this.paths.revForums,  require('../routes/revForums.routes'));
         this.app.use(this.paths.positions,  require('../routes/positions.routes'));
         this.app.use(this.paths.roles,      require('../routes/roles.routes'));
         this.app.use(this.paths.storages,   require('../routes/storages.routes'));
