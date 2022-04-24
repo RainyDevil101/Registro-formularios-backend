@@ -11,6 +11,7 @@ const getForums = async (req, res = response) => {
             .populate('user', 'name')
             .populate('position', 'name')
             .populate('task', 'name')
+            .populate('userRevisor', 'name')
             .skip(Number(from))
             .limit(Number(limit))
             .sort({ 'newDate': 1 })
@@ -27,6 +28,7 @@ const getForum = async (req, res = response) => {
         .populate('user', 'name')
         .populate('position', 'name')
         .populate('task', 'name')
+        .populate('userRevisor', 'name')
         
     res.json(forum);
 };
