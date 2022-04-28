@@ -34,10 +34,9 @@ const getForum = async (req, res = response) => {
 };
 const createForum = async (req, res = response) => {
 
-    const { user, storage, ...body } = req.body;
+    const { user, task, ...body } = req.body;
 
     const newDate = new Date()
-
 
     const result = getDayMonthYear(newDate)
 
@@ -55,7 +54,7 @@ const createForum = async (req, res = response) => {
         dayList,
         monthList,
         yearList,
-        storage: req.user.storage,
+        task: req.user.task,
         name: req.body.name.toUpperCase(),
         user: req.user._id
     }
@@ -66,11 +65,11 @@ const createForum = async (req, res = response) => {
 }
 const updateForum = async (req, res = response) => {
     const { id } = req.params;
-    const { status, userRevisor, revisorStorage, ...data } = req.body;
+    const { status, userRevisor, revisorTask, ...data } = req.body;
     if (data.name) {
         data.name = data.name.toUpperCase();
     }
-    data.revisorStorage = req.user.storage;
+    data.revisorTask = req.user.task;
     data.userRevisor = req.user._id;
     const updatedForum = await Forum.findByIdAndUpdate(id, data, { new: true });
     res.json(updatedForum)

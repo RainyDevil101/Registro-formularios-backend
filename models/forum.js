@@ -39,14 +39,9 @@ const ForumSchema = Schema({
         ref: 'Task',
         required: true,
     },
-    storage: {
+    revisorTask: {
         type: Schema.Types.ObjectId,
-        ref: 'Storage',
-        required: true,
-    },
-    revisorStorage: {
-        type: Schema.Types.ObjectId,
-        ref: 'Storage',
+        ref: 'Task',
     },
     question1: {
         type: String,
