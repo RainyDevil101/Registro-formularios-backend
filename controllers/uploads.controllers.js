@@ -15,7 +15,7 @@ const uploadFileCon = async (req, res = response) => {
         res.json({name});
 
     } catch (msg) {
-        res.status(400).json({msg})
+        res.status(400).json({msg: 'AAAAA'})
     }
 
 }
