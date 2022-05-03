@@ -36,12 +36,10 @@ router.post('/', [
 //Update user ADMIN
 router.put('/:id', [
     validateJWT,
-    hasRole('REVISOR_ROLE'),
     check('id', 'No es un ID válido.').isMongoId(),
     check('id').custom( userByIdExists ),
     check('rut', 'El rut es obligatorio.').not().isEmpty(),
     check('rut').custom( rutValidated ),
-    check('storage').custom( storageByIdExists ),
     validateFields
 ] , usersPut);
 
