@@ -4,14 +4,10 @@ const days   = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sáb
 
 const getDayMonthYear = ( newDate ) => {
 
-
-    const date = new Date ( newDate )
-
-
     return {
-        day: date.getDate(),
-        month: months[ date.getMonth() ],
-        yearDay: `${ date.getFullYear() }, ${ days[ date.getDay() ] }`,
+        day: newDate.getDate(),
+        month: months[ newDate.getMonth() ],
+        yearDay: `${ newDate.getFullYear() }, ${ days[ newDate.getDay() ] }`,
     }
 
 }

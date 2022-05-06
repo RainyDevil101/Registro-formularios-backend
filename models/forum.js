@@ -100,18 +100,6 @@ const ForumSchema = Schema({
         type: String,
         required: true,
     },
-    dayList : {
-        type: String,
-        required: true
-    },
-    monthList : {
-        type: String,
-        required: true
-    },
-    yearList : {
-        type: String,
-        required: true
-    },
     riesgosCriticos: {
         type: String,
         default: 'pendiente',

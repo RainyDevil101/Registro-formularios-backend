@@ -44,12 +44,6 @@ const createForum = async (req, res = response) => {
 
     const taskName = getTaskName.name
 
-    const result = getDayMonthYear(newDate)
-
-    const dayList = result.day
-    const monthList = result.month
-    const yearList = result.yearDay
-
     const forumDB = await Forum.findOne().sort({ '_id': -1 }).limit(1);
     const code = forumDB.code + 1;
     // Generate DATA
@@ -57,9 +51,6 @@ const createForum = async (req, res = response) => {
         ...body,
         code,
         newDate,
-        dayList,
-        monthList,
-        yearList,
         dateFormat,
         taskName,
         task: req.user.task,
