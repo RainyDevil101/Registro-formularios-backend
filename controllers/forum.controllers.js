@@ -1,5 +1,5 @@
 const { response } = require('express');
-const { Forum } = require('../models');
+const { Forum, Task } = require('../models');
 const { getDayMonthYear } = require('../helpers/DateFormat')
 
 const getForums = async (req, res = response) => {
@@ -34,9 +34,15 @@ const getForum = async (req, res = response) => {
 };
 const createForum = async (req, res = response) => {
 
-    const { user, task, ...body } = req.body;
+    const { user, task,...body } = req.body;
 
     const newDate = new Date()
+
+    const dateFormat = newDate.toISOString().slice(0, 10)
+    
+    const getTaskName = await Task.findById(req.user.task).where('status').equals(true)
+
+    const taskName = getTaskName.name
 
     const result = getDayMonthYear(newDate)
 
@@ -54,6 +60,8 @@ const createForum = async (req, res = response) => {
         dayList,
         monthList,
         yearList,
+        dateFormat,
+        taskName,
         task: req.user.task,
         name: req.body.name.toUpperCase(),
         user: req.user._id

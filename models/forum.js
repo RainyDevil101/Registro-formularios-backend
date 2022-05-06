@@ -25,6 +25,10 @@ const ForumSchema = Schema({
         type: Date,
         required: true
     },
+    dateFormat: {
+        type: String,
+        required: true
+    },
     run: {
         type: String,
         required: true,
@@ -37,6 +41,10 @@ const ForumSchema = Schema({
     task: {
         type: Schema.Types.ObjectId,
         ref: 'Task',
+        required: true,
+    },
+    taskName: {
+        type: String,
         required: true,
     },
     revisorTask: {
