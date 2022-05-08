@@ -3,10 +3,9 @@ const { Forum, Task } = require('../models');
 const { getDayMonthYear } = require('../helpers/DateFormat')
 
 const getForums = async (req, res = response) => {
-    const { limit = 100000, from = 0 } = req.query;
+    const { limit = 90000000000, from = 0 } = req.query;
     const query = { status: true };
-    const [total, forums] = await Promise.all([
-        Forum.countDocuments(query),
+    const forums = await 
         Forum.find(query)
             .populate('user', 'name')
             .populate('position', 'name')
@@ -15,9 +14,8 @@ const getForums = async (req, res = response) => {
             .skip(Number(from))
             .limit(Number(limit))
             .sort({ 'newDate': 1 })
-    ]);
+    
     res.json({
-        total,
         forums
     })
 };
