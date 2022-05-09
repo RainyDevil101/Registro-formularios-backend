@@ -10,11 +10,12 @@ const { storageByIdExists, storageNameExists } = require('../helpers')
 const router = Router();
 // Get all storages - ADMIN
 router.get('/', [
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE', 'ADMIN_ROLE'),
 ], getStorages);
 // Get storage by id - ADMIN
 router.get('/:id', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE', 'ADMIN_ROLE'),
     check('id', 'No es un id válido.').isMongoId(),
     check('id').custom(storageByIdExists),
     validateFields,
@@ -22,7 +23,7 @@ router.get('/:id', [
 // Create a new storage - ADMIN
 router.post('/', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
+    hasRole('ADMIN_ROLE'),
     check('name', 'El nombre es obligatorio').not().isEmpty(),
     check('name', 'El nombre no es válido').isLength({ min: 1 }).matches(/^[a-zA-Z0-9_.-]*$/).withMessage('Solo puede contener letras y números'),
     validateFields,
@@ -30,7 +31,7 @@ router.post('/', [
 //Update storage - ADMIN
 router.put('/:id', [
     validateJWT,
-    adminRole,
+    hasRole('ADMIN_ROLE'),
     check('id', 'No es un id válido').isMongoId(),
     check('id').custom(storageByIdExists),
     check('name').custom(storageNameExists),
@@ -41,7 +42,7 @@ router.put('/:id', [
 //Delete storage - ADMIN
 router.delete('/:id', [
     validateJWT,
-    adminRole,
+    hasRole('ADMIN_ROLE'),
     check('id', 'No es un id válido').isMongoId(),
     validateFields,
     check('id').custom(storageByIdExists),

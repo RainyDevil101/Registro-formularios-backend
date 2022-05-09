@@ -33,7 +33,7 @@ const getForum = async (req, res = response) => {
 const createForum = async (req, res = response) => {
 
     const { user, task,...body } = req.body;
-
+    
     const newDate = new Date()
 
     const dateFormat = newDate.toISOString().slice(0, 10)
@@ -41,6 +41,8 @@ const createForum = async (req, res = response) => {
     const getTaskName = await Task.findById(req.user.task).where('status').equals(true)
 
     const taskName = getTaskName.name
+
+    console.log(req.body);
 
     const forumDB = await Forum.findOne().sort({ '_id': -1 }).limit(1);
     const code = forumDB.code + 1;
@@ -55,6 +57,7 @@ const createForum = async (req, res = response) => {
         name: req.body.name.toUpperCase(),
         user: req.user._id
     }
+    console.log(data, 'b');
     const forum = new Forum(data);
     // Save DB
     await forum.save();

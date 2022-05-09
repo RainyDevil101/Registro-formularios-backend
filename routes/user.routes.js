@@ -8,13 +8,13 @@ const router = Router();
 //Get users ADMIN
 router.get('/', [
     validateJWT,
-    hasRole('REVISOR_ROLE'),
+    hasRole('ADMIN_ROLE'),
 ] , usersGet) ;
 
 // Get user by id ADMIN
 router.get('/:id', [
     validateJWT,
-    hasRole('REVISOR_ROLE'),
+    hasRole('ADMIN_ROLE'),
     check('id', 'No es un id válido.').isMongoId(),
     check('id').custom(userByIdExists),
     validateFields,
@@ -23,7 +23,7 @@ router.get('/:id', [
 // Create user ADMIN
 router.post('/', [
     validateJWT,
-    hasRole('REVISOR_ROLE'),
+    hasRole('ADMIN_ROLE'),
     check('name', 'El nombre es obligatorio.').not().isEmpty(),
     check('password', 'La contraseña debe tener más de 6 letras.').isLength({ min: 6 }),
     check('rut', 'El rut es obligatorio.').not().isEmpty(),
@@ -46,7 +46,7 @@ router.put('/:id', [
 //Delete user ADMIN
 router.delete('/:id', [
     validateJWT,
-    hasRole('REVISOR_ROLE'),
+    hasRole('ADMIN_ROLE'),
     check('id', 'No es un ID válido.').isMongoId(),
     check('id').custom( userByIdExists ),
     validateFields

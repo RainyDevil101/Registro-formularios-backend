@@ -6,6 +6,6 @@ const router = Router();
 // Get all positions - ADMIN
 router.get('/', [
     validateJWT,
-    hasRole('REVISOR_ROLE'),
+    hasRole('ADMIN_ROLE'),
 ], getRoles);
 module.exports = router;

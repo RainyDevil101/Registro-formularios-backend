@@ -20,7 +20,7 @@ const UserSchema = Schema({
     role: {
         type: String,
         required: [true],
-        emun: ['SUPERVISOR_ROLE', 'REVISOR_ROLE']
+        emun: ['SUPERVISOR_ROLE', 'REVISOR_ROLE', 'ADMIN_ROLE']
     },
     position: {
         type: Schema.Types.ObjectId,

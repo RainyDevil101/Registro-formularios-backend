@@ -12,13 +12,13 @@ const router = Router();
 // Get all questions - ADMIN
 router.get('/', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE', 'ADMIN_ROLE'),
 ], getQuestions);
 
 // Get question by id - ADMIN
 router.get('/:id', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE', 'ADMIN_ROLE'),
     check('id', 'No es un id válido.').isMongoId(),
     check('id').custom(questionByIdExists),
     validateFields,
@@ -27,23 +27,23 @@ router.get('/:id', [
 // Create a new question - ADMIN
 router.post('/', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
+    hasRole('ADMIN_ROLE'),
     validateFields,
 ], createQuestion)
 
-//Update forum - ADMIN
+//Update question - ADMIN
 router.put('/:id', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
+    hasRole('ADMIN_ROLE'),
     check('id', 'No es un id válido').isMongoId(),
     check('id').custom(questionByIdExists),
     validateFields,
 ], updateQuestion)
 
-//Delete forum - ADMIN
+//Delete question - ADMIN
 router.delete('/:id', [
     validateJWT,
-    adminRole,
+    hasRole('ADMIN_ROLE'),
     check('id', 'No es un id válido').isMongoId(),
     validateFields,
     check('id').custom(questionByIdExists),

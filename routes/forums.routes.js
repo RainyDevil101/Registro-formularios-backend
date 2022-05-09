@@ -12,13 +12,13 @@ const router = Router();
 // Get all forums - ADMIN
 router.get('/', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
+    hasRole('REVISOR_ROLE', 'ADMIN_ROLE'),
 ], getForums);
 
 // Get forum by id - ADMIN
 router.get('/:id', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
+    hasRole('REVISOR_ROLE', 'ADMIN_ROLE'),
     check('id', 'No es un id válido.').isMongoId(),
     check('id').custom(forumByIdExists),
     validateFields,
@@ -27,23 +27,27 @@ router.get('/:id', [
 // Create a new forum - ADMIN
 router.post('/', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'ADMIN_ROLE'),
+    check('name', 'El nombre es obligatorio').not().isEmpty(),
+    check('name', 'El nombre no es válido').isLength({ min: 1, max: 40 }),
     validateFields,
 ], createForum)
 
 //Update forum - ADMIN
 router.put('/:id', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
+    hasRole('REVISOR_ROLE', 'ADMIN_ROLE'),
     check('id', 'No es un id válido').isMongoId(),
     check('id').custom(forumByIdExists),
+    check('name', 'El nombre es obligatorio').not().isEmpty(),
+    check('name', 'El nombre no es válido').isLength({ min: 1, max: 40 }),
     validateFields,
 ], updateForum)
 
 //Delete forum - ADMIN
 router.delete('/:id', [
     validateJWT,
-    adminRole,
+    hasRole('ADMIN_ROLE'),
     check('id', 'No es un id válido').isMongoId(),
     validateFields,
     check('id').custom(forumByIdExists),

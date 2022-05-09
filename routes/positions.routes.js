@@ -12,13 +12,13 @@ const router = Router();
 // Get all positions - ADMIN
 router.get('/', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE', 'ADMIN_ROLE'),
 ], getPositions);
 
 // Get position by id - ADMIN
 router.get('/:id', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE', 'ADMIN_ROLE'),
     check('id', 'No es un id válido.').isMongoId(),
     check('id').custom(positionByIdExists),
     validateFields,
@@ -27,7 +27,7 @@ router.get('/:id', [
 // Create a new Position - ADMIN
 router.post('/', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE', 'ADMIN_ROLE'),
     check('name', 'El nombre es obligatorio.').not().isEmpty(),
     check('name', 'El nombre no es válido.').isLength({ min: 1 }).matches(/^[a-zA-Z0-9 ]*$/).withMessage('Solo puede contener letras y números'),
     validateFields,
@@ -36,7 +36,7 @@ router.post('/', [
 //Update position - ADMIN
 router.put('/:id', [
     validateJWT,
-    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE'),
+    hasRole('SUPERVISOR_ROLE', 'REVISOR_ROLE', 'ADMIN_ROLE'),
     check('id', 'No es un id válido').isMongoId(),
     check('id').custom(positionByIdExists),
     check('name').custom(positionNameExists),
@@ -48,7 +48,7 @@ router.put('/:id', [
 //Delete position - ADMIN
 router.delete('/:id', [
     validateJWT,
-    adminRole,
+    hasRole('ADMIN_ROLE'),
     check('id', 'No es un id válido').isMongoId(),
     validateFields,
     check('id').custom(positionByIdExists),
