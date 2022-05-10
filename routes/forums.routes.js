@@ -39,8 +39,6 @@ router.put('/:id', [
     hasRole('REVISOR_ROLE', 'ADMIN_ROLE'),
     check('id', 'No es un id válido').isMongoId(),
     check('id').custom(forumByIdExists),
-    check('name', 'El nombre es obligatorio').not().isEmpty(),
-    check('name', 'El nombre no es válido').isLength({ min: 1, max: 40 }),
     validateFields,
 ], updateForum)
 

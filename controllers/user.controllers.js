@@ -46,7 +46,7 @@ const usersDelete = async (req, res = response) => {
 }
 const usersPut = async (req, res = response) => {
     const { id } = req.params;
-    const { uid, password ,mail, ...rest } = req.body;
+    const { uid, password , ...rest } = req.body;
     if (password) {
         // Encrypt password
         const salt = bcryptjs.genSaltSync(10);
