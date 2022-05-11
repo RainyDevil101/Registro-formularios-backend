@@ -14,7 +14,6 @@ class Server {
             forums:         '/api/forums',
             positions:      '/api/positions',
             roles:          '/api/roles',
-            storages:       '/api/storages',
             tasks:          '/api/tasks',
             ubications:     '/api/ubications',
             users:          '/api/users',
@@ -65,7 +64,6 @@ class Server {
         this.app.use(this.paths.forums,     require('../routes/forums.routes'));
         this.app.use(this.paths.positions,  require('../routes/positions.routes'));
         this.app.use(this.paths.roles,      require('../routes/roles.routes'));
-        this.app.use(this.paths.storages,   require('../routes/storages.routes'));
         this.app.use(this.paths.tasks,      require('../routes/tasks.routes'));
         this.app.use(this.paths.ubications, require('../routes/ubications.routes'));
         this.app.use(this.paths.users,      require('../routes/user.routes'));

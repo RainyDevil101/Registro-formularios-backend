@@ -23,8 +23,7 @@ const UserSchema = Schema({
         emun: ['SUPERVISOR_ROLE', 'REVISOR_ROLE', 'ADMIN_ROLE']
     },
     position: {
-        type: Schema.Types.ObjectId,
-        ref: 'Position',
+        type: String,
         required: true,
     },
     task: {

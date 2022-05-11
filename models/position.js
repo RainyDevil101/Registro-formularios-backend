@@ -14,11 +14,6 @@ const PositionSchema = Schema({
         ref: 'User',
         required: true,
     },
-    storage: {
-        type: Schema.Types.ObjectId,
-        ref: 'Storage',
-        required: true,
-    },
     status: {
         type: Boolean,
         default: true,

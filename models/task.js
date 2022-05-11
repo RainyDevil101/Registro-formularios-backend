@@ -19,11 +19,6 @@ const TaskSchema = Schema({
         default: true,
         required: true
     },
-    storage: {
-        type: Schema.Types.ObjectId,
-        ref: "Storage",
-        required: true,
-    }
 });
 TaskSchema.methods.toJSON = function() {
     const { __v, status, ...data } = this.toObject();
