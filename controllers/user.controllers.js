@@ -8,7 +8,6 @@ const usersGet = async (req = request, res = response) => {
     const [ total, users ] = await Promise.all([
         User.countDocuments(query),
         User.find(query)
-        .populate('position', 'name')
         .populate('task', 'name')
             .skip(Number(from))
             .limit(Number(limit))
@@ -23,7 +22,6 @@ const getUser = async (req = request, res = response) => {
     const {id} = req.params;
     const user = await User.findById(id).where('status').equals(true)
                     .sort({'name': 1 })
-                    .populate('position', 'name')
                     .populate('task', 'name')
     res.json(user);
 }

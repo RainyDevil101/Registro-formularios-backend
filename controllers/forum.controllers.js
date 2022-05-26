@@ -8,7 +8,6 @@ const getForums = async (req, res = response) => {
     const forums = await 
         Forum.find(query)
             .populate('user', 'name')
-            .populate('position', 'name')
             .populate('task', 'name')
             .populate('userRevisor', 'name')
             .skip(Number(from))
@@ -24,7 +23,6 @@ const getForum = async (req, res = response) => {
     const forum = await Forum.findById(id).where('status').equals(true)
                                                 
         .populate('user', 'name')
-        .populate('position', 'name')
         .populate('task', 'name')
         .populate('userRevisor', 'name')
         

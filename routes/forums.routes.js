@@ -5,8 +5,8 @@ const { createForum,
     getForums,
     updateForum,
     deleteForum } = require('../controllers/forum.controllers')
-const { validateJWT, validateFields, adminRole, hasRole } = require('../middlewares');
-const { forumByIdExists, forumNameExists } = require('../helpers')
+const { validateJWT, validateFields, hasRole } = require('../middlewares');
+const { forumByIdExists } = require('../helpers')
 const router = Router();
 
 // Get all forums - ADMIN

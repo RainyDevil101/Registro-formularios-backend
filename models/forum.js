@@ -34,8 +34,7 @@ const ForumSchema = Schema({
         required: true,
     },
     position: {
-        type: Schema.Types.ObjectId,
-        ref: 'Position',
+        type: String,
         required: true,
     },
     task: {
