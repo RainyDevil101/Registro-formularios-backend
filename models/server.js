@@ -1,4 +1,6 @@
 const express           = require('express');
+const mysql             = require('mysql');
+const morgan            = require('morgan');
 const cors              = require('cors');
 const fileUpload        = require('express-fileupload');
 const { dbConnection }  = require('../database/config');
@@ -17,7 +19,7 @@ class Server {
             ubications:     '/api/ubications',
             users:          '/api/users',
             uploads:        '/api/uploads',
-        }
+        };
 
         //Database connect
         this.conectarDB();
@@ -27,13 +29,15 @@ class Server {
 
         //Application routes
         this.routes();
-    }
+    };
     async conectarDB() {
-        await dbConnection()
-    }
+        await dbConnection();
+    };
     middlewares() {  
 
         //CORS
+
+        this.app.use(morgan('dev'));
 
         this.app.use((req, res, next) => {
             res.header('Access-Control-Allow-Origin', '*');
@@ -41,14 +45,14 @@ class Server {
             res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
             res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
             next();
-        })
+        });
 
         //Lecture
         this.app.use( cors() );
         this.app.use( express.json() );
 
         //Public directory
-        this.app.use( express.static('public') )
+        this.app.use( express.static('public') );
 
         //Fileupload - Files
         this.app.use( fileUpload({
@@ -56,7 +60,7 @@ class Server {
             tempFileDir: '/tmp/',
             createParentPath: true,
         }));
-    }
+    };
 
     routes() {
         this.app.use(this.paths.auth,       require('../routes/auth.routes'));
@@ -69,10 +73,10 @@ class Server {
     }
     listen() {
         this.server.listen(this.port, () => {
-            console.log('Servidor up!', this.port)
+            console.log('Servidor up!', this.port);
         });
-    }
+    };
 
-}
+};
 
 module.exports = Server;
